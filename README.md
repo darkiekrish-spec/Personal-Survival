@@ -3,3 +3,10 @@ Start Server - java -Xms8G -Xmx12G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:
 before leaving - cp -r ~/.config/playit_gg .
 after opening codespace - mkdir -p ~/.config
 cp -r playit_gg ~/.config/
+loop - while true
+do
+  echo "[$(date)] Checking server..."
+  ls > /dev/null
+  pwd > /dev/null
+  sleep 30
+done

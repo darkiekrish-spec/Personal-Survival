@@ -1,0 +1,558 @@
+# ╔══════════════════════════════════════════════════════════════╗
+# ║           UltimateGraves - Configuration File                ║
+# ║                    Version 1.0.0                             ║
+# ║                                                              ║
+# ║  This file controls every aspect of the grave system.        ║
+# ║  Use /graveadmin reload to apply changes without restart.    ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    DATABASE SETTINGS                       │
+# └────────────────────────────────────────────────────────────┘
+storage:
+  # Database type: SQLITE or MYSQL
+  # SQLITE = Local file-based database (no setup required)
+  # MYSQL = Remote database (requires configuration below)
+  type: "SQLITE"
+
+  # MySQL Configuration (Only used if type is MYSQL)
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "ultimategraves"
+    username: "root"
+    password: "your_password_here"
+
+    # Connection pool settings (Advanced - HikariCP)
+    pool:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000 # 30 seconds
+      idle-timeout: 600000 # 10 minutes
+      max-lifetime: 1800000 # 30 minutes
+
+  # Auto-save interval (in seconds)
+  # Graves are saved to database every X seconds
+  auto-save-interval: 300 # 5 minutes
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                   GRAVE CORE SETTINGS                      │
+# └────────────────────────────────────────────────────────────┘
+graves:
+  # Enable grave system globally
+  enabled: true
+
+  # Maximum graves per player
+  # When exceeded, oldest grave will drop items and be removed
+  # Set to -1 for unlimited (not recommended)
+  # Players with permission ultimategraves.unlimited bypass this
+  max-graves-per-player: 5
+
+  # Grave expiration time (in seconds)
+  # After this time:
+  # - TIMED mode graves become public
+  # - Expired graves can be auto-removed (see cleanup section)
+  # Set to -1 for no expiration
+  expiration-time: 900 # 15 minutes
+
+  # Protection Mode Strategy
+  # Determines who can access graves
+  # Options: PRIVATE, PUBLIC, TIMED, PVP_PVE, TOKEN
+  #
+  # PRIVATE: Only owner can access
+  # PUBLIC: Anyone can access (free-for-all)
+  # TIMED: Private for X seconds, then public
+  # PVP_PVE: If killed by player -> Public, if by mob/environment -> Private
+  # TOKEN: Requires a specific item (Grave Key) to open
+  default-protection-mode: "TIMED"
+
+  # Timed mode duration (in seconds)
+  # How long graves stay private in TIMED mode
+  timed-mode-duration: 300 # 5 minutes
+
+  # Token mode settings
+  token-mode:
+    # Item required to open TOKEN-protected graves
+    required-item:
+      material: "TRIPWIRE_HOOK"
+      name: "<gold><bold>Grave Key</bold></gold>"
+      lore:
+        - "<gray>Use this to unlock protected graves"
+        - "<yellow>Right-click a grave to use"
+      # Custom model data (optional, for resource packs)
+      custom-model-data: 0
+    # Consume the key when used?
+    consume-on-use: true
+
+  # Worlds where graves do NOT spawn
+  # Players dying in these worlds will NOT get a grave
+  blacklisted-worlds:
+    - "creative_world"
+    - "spawn_world"
+    - "lobby"
+
+  # Should graves spawn in the void?
+  allow-void-graves: true
+
+  # Should graves spawn in lava?
+  allow-lava-graves: true
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    VISUAL SETTINGS                         │
+# └────────────────────────────────────────────────────────────┘
+visuals:
+  # Grave block material
+  # Options: PLAYER_HEAD, SKELETON_SKULL, WITHER_SKELETON_SKULL,
+  #          CHEST, ENDER_CHEST, NETHERITE_BLOCK, RESPAWN_ANCHOR, etc.
+  #
+  # PLAYER_HEAD = Shows the dead player's skin (recommended)
+  block-material: "PLAYER_HEAD"
+
+  # Should the grave block glow? (Glowing effect)
+  glowing: true
+
+  # Glow color (only if glowing is true)
+  # Options: WHITE, ORANGE, MAGENTA, LIGHT_BLUE, YELLOW, LIME,
+  #          PINK, GRAY, LIGHT_GRAY, CYAN, PURPLE, BLUE,
+  #          BROWN, GREEN, RED, BLACK
+  glow-color: "YELLOW"
+
+  # Hologram settings (TextDisplay entities above grave)
+  hologram:
+    enabled: true
+
+    # Height offset above grave block (in blocks)
+    height-offset: 1.5
+
+    # Line spacing between hologram lines
+    line-spacing: 0.25
+
+    # Hologram update interval (in ticks)
+    # How often the countdown timer updates
+    # 20 ticks = 1 second
+    update-interval: 20
+
+    # Hologram lines (top to bottom)
+    # Placeholders: %owner%, %time%, %cause%, %items%, %mode%
+    lines:
+      - "<gradient:red:dark_red><bold>⚰ GRAVE ⚰</bold></gradient>"
+      - "<gray>Owner: <white>%owner%</white></gray>"
+      - "<yellow>Time: %time%</yellow>"
+      - "<red>Cause: %cause%</red>"
+      - "<green>Items: %items%</green>"
+
+  # Particle effects
+  particles:
+    enabled: true
+
+    # Particle type
+    # Options: SOUL_FIRE_FLAME, SOUL, FLAME, SMOKE_NORMAL,
+    #          ENCHANTMENT_TABLE, SPELL_WITCH, REDSTONE, etc.
+    # Full list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
+    type: "SOUL_FIRE_FLAME"
+
+    # Number of particles per tick
+    count: 3
+
+    # Spawn interval (in ticks)
+    interval: 10 # Every 0.5 seconds
+
+    # Particle spread radius
+    offset-x: 0.3
+    offset-y: 0.5
+    offset-z: 0.3
+
+    # Particle speed
+    speed: 0.01
+
+  # Beacon beam (visible to grave owner)
+  beacon:
+    enabled: true
+
+    # Beam color (RGB format)
+    # Red, Green, Blue values from 0-255
+    color:
+      red: 255
+      green: 215
+      blue: 0
+
+    # Beam visibility range (in blocks)
+    range: 64
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                  SAFE LOCATION ALGORITHM                   │
+# └────────────────────────────────────────────────────────────┘
+safe-location:
+  # Enable smart location finding?
+  # If disabled, graves spawn exactly at death location (may be in walls/lava)
+  enabled: true
+
+  # Search radius for safe block (in blocks)
+  # Scans horizontally and vertically for a solid, safe block
+  search-radius: 10
+
+  # Vertical search range (blocks above and below death point)
+  vertical-range: 10
+
+  # Void handling
+  void:
+    # If player dies in void, spawn grave at this Y level
+    spawn-height: 5
+
+    # Create a platform under the grave?
+    create-platform: true
+
+    # Platform material
+    platform-material: "GLASS"
+
+    # Platform size (radius in blocks)
+    platform-size: 1
+
+  # Lava handling
+  lava:
+    # Block to replace lava with (fire-immune recommended)
+    # Options: NETHERITE_BLOCK, OBSIDIAN, RESPAWN_ANCHOR, STONE
+    replacement-material: "NETHERITE_BLOCK"
+
+    # Should we remove lava blocks around the grave?
+    clear-surrounding-lava: true
+
+    # Radius to clear lava (in blocks)
+    clear-radius: 1
+
+  # Blocks considered "unsafe" to spawn graves in
+  # Graves will not spawn in these materials
+  unsafe-blocks:
+    - "LAVA"
+    - "WATER"
+    - "FIRE"
+    - "SOUL_FIRE"
+    - "CACTUS"
+    - "MAGMA_BLOCK"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                  INVENTORY & ITEMS                         │
+# └────────────────────────────────────────────────────────────┘
+inventory:
+  # Store player inventory in grave?
+  store-items: true
+
+  # Store armor in grave?
+  store-armor: true
+
+  # Store offhand item in grave?
+  store-offhand: true
+
+  # XP (Experience) settings
+  xp:
+    # Store XP in grave?
+    enabled: true
+
+    # Percentage of XP to store (0.0 to 1.0)
+    # 1.0 = 100% (all XP saved)
+    # 0.5 = 50% (half XP saved)
+    # 0.0 = 0% (no XP saved)
+    percentage: 0.75 # 75% of XP saved
+
+    # Players with permission ultimategraves.keepxp keep 100%
+
+  # Soulbound items (items that DON'T go to grave)
+  soulbound:
+    enabled: true
+
+    # Items with this lore line will NOT go to grave
+    # Case-sensitive! Color codes supported.
+    lore-identifiers:
+      - "<gold><bold>SOULBOUND</bold></gold>"
+      - "§6§lSOULBOUND"
+      - "Soulbound"
+
+    # Items with these custom NBT tags (via plugins) won't go to grave
+    # Format: "key:value"
+    nbt-tags:
+      - "soulbound:true"
+      - "keep_on_death:1"
+
+  # Overflow handling
+  # What happens if player's inventory is full when looting grave?
+  overflow:
+    # Options: LEAVE_IN_GRAVE, DROP_AT_FEET, PREVENT_LOOT
+    #
+    # LEAVE_IN_GRAVE = Items stay in grave for later retrieval
+    # DROP_AT_FEET = Items drop as items on ground
+    # PREVENT_LOOT = Prevent looting until inventory has space
+    mode: "LEAVE_IN_GRAVE"
+
+  # Smart equip
+  # Automatically equip armor when looting grave (if slots are empty)?
+  smart-equip-armor: true
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    ECONOMY SETTINGS                        │
+# └────────────────────────────────────────────────────────────┘
+economy:
+  # Requires Vault and an economy plugin (e.g., EssentialsX)
+  enabled: true
+
+  # Cost to teleport to a grave
+  # Set to 0.0 to disable
+  # Players with ultimategraves.teleport.free bypass this
+  teleport-cost: 100.0
+
+  # Cost to retrieve items from grave (Ransom mode)
+  # Set to 0.0 to disable
+  retrieval-cost: 0.0
+
+  # Cost to open a grave (per-access fee)
+  open-cost: 0.0
+
+  # Refund items as money if grave expires?
+  # Items will be converted to value and deposited to player
+  refund-on-expiration:
+    enabled: false
+
+    # Percentage of item value to refund (0.0 to 1.0)
+    refund-percentage: 0.5 # 50% of item worth
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                   GUARDIAN SYSTEM                          │
+# └────────────────────────────────────────────────────────────┘
+guardian:
+  # Enable Grave Guardian feature?
+  # Spawns a mob (zombie/skeleton) equipped with player's gear
+  # Grave remains locked until guardian is killed
+  enabled: true
+
+  # Chance to spawn a guardian (0.0 to 1.0)
+  # 0.0 = Never, 1.0 = Always, 0.15 = 15% chance
+  spawn-chance: 0.15
+
+  # Guardian mob type
+  # Options: ZOMBIE, SKELETON, WITHER_SKELETON, PIGLIN_BRUTE, ZOMBIFIED_PIGLIN
+  mob-type: "ZOMBIE"
+
+  # Should guardian be equipped with player's armor?
+  equip-armor: true
+
+  # Should guardian be equipped with player's weapon?
+  equip-weapon: true
+
+  # Guardian health multiplier
+  # 1.0 = Normal health, 2.0 = Double health
+  health-multiplier: 2.0
+
+  # Guardian custom name
+  # Placeholder: %owner%
+  custom-name: "<red><bold>Ghost of %owner%</bold></red>"
+
+  # Should guardian glow?
+  glowing: true
+
+  # Glow color
+  glow-color: "RED"
+
+  # Guardian AI settings
+  ai:
+    # Movement speed multiplier
+    speed: 1.2
+
+    # Attack damage multiplier
+    damage: 1.5
+
+    # Follow range (blocks)
+    follow-range: 32.0
+
+    # Can guardian despawn naturally?
+    can-despawn: false
+
+  # Drops
+  # Should guardian drop equipped items when killed?
+  drops-equipment: false
+
+  # Notification to owner when guardian spawns
+  notify-owner: true
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                  INTERACTION SETTINGS                      │
+# └────────────────────────────────────────────────────────────┘
+interaction:
+  # Left-click grave to show info
+  left-click-info: true
+
+  # Right-click grave to open GUI
+  right-click-open: true
+
+  # Shift + Right-click to quick loot (instant retrieval)
+  shift-right-click-quick-loot: true
+
+  # Should grave break when empty?
+  remove-when-empty: true
+
+  # Can players break graves with tools?
+  allow-break: false
+
+  # Can explosions destroy graves?
+  explosion-proof: true
+
+  # Can pistons move grave blocks?
+  piston-proof: true
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    RESPAWN SETTINGS                        │
+# └────────────────────────────────────────────────────────────┘
+respawn:
+  # Give compass pointing to grave on respawn?
+  give-compass: true
+
+  # Compass settings
+  compass:
+    # Compass item name
+    name: "<gold><bold>Grave Compass</bold></gold>"
+
+    # Compass lore
+    lore:
+      - "<gray>Points to your grave</gray>"
+      - "<yellow>Location: %x%, %y%, %z%</yellow>"
+      - "<green>Right-click to track</green>"
+
+    # Custom model data (for resource packs)
+    custom-model-data: 0
+
+    # Should compass be removed when grave is looted?
+    remove-on-loot: true
+
+  # Send title message with grave coordinates?
+  title-message:
+    enabled: true
+
+    # Fade in, stay, fade out (in ticks)
+    fade-in: 10
+    stay: 70
+    fade-out: 20
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    CLEANUP SETTINGS                        │
+# └────────────────────────────────────────────────────────────┘
+cleanup:
+  # Auto-remove expired graves?
+  auto-remove-expired: true
+
+  # What happens to items when grave is auto-removed?
+  # Options: DROP, DELETE, REFUND
+  #
+  # DROP = Items drop on ground
+  # DELETE = Items are deleted (lost forever)
+  # REFUND = Convert to money (requires economy.refund-on-expiration)
+  expired-grave-handling: "DROP"
+
+  # Auto-remove graves on server restart?
+  remove-on-restart: false
+
+  # Remove graves when player is permanently banned?
+  remove-on-ban: false
+
+  # Cleanup old graves from database (in days)
+  # Graves older than X days are deleted from DB
+  # Set to -1 to disable
+  database-cleanup-days: 30
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                      GUI SETTINGS                          │
+# └────────────────────────────────────────────────────────────┘
+gui:
+  # Graves list GUI
+  graves-list:
+    title: "<gradient:red:gold>Your Graves</gradient>"
+    size: 54 # Must be multiple of 9 (9, 18, 27, 36, 45, 54)
+
+    # Item representing each grave
+    grave-item:
+      material: "SKELETON_SKULL"
+      name: "<yellow>Grave #%number%</yellow>"
+      lore:
+        - "<gray>Location: <white>%world% %x%, %y%, %z%</white></gray>"
+        - "<gray>Died: <white>%time_ago%</white></gray>"
+        - "<gray>Cause: <white>%cause%</white></gray>"
+        - "<gray>Items: <white>%item_count%</white></gray>"
+        - ""
+        - "<green>Left-Click: <white>Teleport (%cost%)</white></green>"
+        - "<yellow>Right-Click: <white>Preview Items</white></yellow>"
+
+    # Filler item (empty slots)
+    filler:
+      enabled: true
+      material: "GRAY_STAINED_GLASS_PANE"
+      name: " "
+
+  # Individual grave loot GUI
+  grave-loot:
+    title: "<red>Grave Contents</red>"
+    # Size auto-calculated based on items
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                  INTEGRATION SETTINGS                      │
+# └────────────────────────────────────────────────────────────┘
+integrations:
+  # WorldGuard integration
+  worldguard:
+    # Check region flags before spawning graves?
+    enabled: true
+
+    # Custom flag name (requires WorldGuard 7.0+)
+    # Players need this flag set to TRUE in regions
+    flag-name: "graves-spawn"
+
+    # Fallback if flag not set?
+    # true = Allow graves, false = Deny graves
+    default-allow: true
+
+  # PlaceholderAPI expansion
+  placeholderapi:
+    enabled: true
+
+  # Vault economy
+  vault:
+    enabled: true
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                     DEBUG SETTINGS                         │
+# └────────────────────────────────────────────────────────────┘
+debug:
+  # Enable debug logging?
+  # Logs detailed info to console (useful for troubleshooting)
+  enabled: false
+
+  # Log grave spawns?
+  log-spawns: true
+
+  # Log grave access attempts?
+  log-access: true
+
+  # Log database operations?
+  log-database: false
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                  ADVANCED SETTINGS                         │
+# └────────────────────────────────────────────────────────────┘
+advanced:
+  # Use async processing for grave generation?
+  # Recommended: true (prevents lag on death)
+  async-grave-spawn: true
+
+  # Cache player graves in memory?
+  # Reduces database queries, increases RAM usage
+  cache-graves: true
+
+  # Max cache size (number of graves)
+  max-cache-size: 500
+
+  # Metrics (bStats)
+  # Anonymous usage statistics (helps development)
+  metrics: true
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                     END OF CONFIG                            ║
+# ║                                                              ║
+# ║  Need help? Discord: geturplugins                            ║
+# ║                                                              ║
+# ╚══════════════════════════════════════════════════════════════╝

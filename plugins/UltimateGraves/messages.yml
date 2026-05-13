@@ -1,0 +1,277 @@
+# ╔══════════════════════════════════════════════════════════════╗
+# ║           UltimateGraves - Messages File                     ║
+# ║                    Version 1.0.0                             ║
+# ║                                                              ║
+# ║  All player-facing messages in MiniMessage format.           ║
+# ║  Color Codes: https://docs.advntr.dev/minimessage/format     ║
+# ║                                                              ║
+# ║  Placeholders:                                               ║
+# ║    %player% - Player name                                    ║
+# ║    %owner% - Grave owner name                                ║
+# ║    %x%, %y%, %z% - Coordinates                               ║
+# ║    %world% - World name                                      ║
+# ║    %cost% - Economy cost                                     ║
+# ║    %time% - Formatted time                                   ║
+# ║    %cause% - Death cause                                     ║
+# ║    %count% - Grave count                                     ║
+# ║    %items% - Item count                                      ║
+# ║    %xp% - XP amount                                          ║
+# ║    %killer% - Killer name                                    ║
+# ║    %mode% - Protection mode                                  ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                      GENERAL MESSAGES                      │
+# └────────────────────────────────────────────────────────────┘
+prefix: "<gray>[<gradient:red:gold:red>UltimateGraves</gradient>]</gray> "
+no-permission: "%prefix%<red>You don't have permission to do that.</red>"
+player-only: "%prefix%<red>This command can only be used by players.</red>"
+invalid-syntax: "%prefix%<red>Invalid syntax. Use: <yellow>%syntax%</yellow></red>"
+reload-success: "%prefix%<green>Configuration reloaded successfully!</green>"
+reload-failed: "%prefix%<red>Failed to reload configuration. Check console for errors.</red>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                   HOLOGRAM MESSAGES                        │
+# └────────────────────────────────────────────────────────────┘
+hologram:
+  title: "<gradient:red:dark_red><bold>⚰ GRAVE ⚰</bold></gradient>"
+  owner: "<gray>Owner: <white>%owner%</white></gray>"
+  time: "<yellow>Time: %time%</yellow>"
+  killer: "<red>Killed by: %killer%</red>"
+  expires: "<gray>Expires in: <yellow>%time%</yellow></gray>"
+  items: "<green>Items: %items%</green>"
+  xp: "<aqua>XP: %xp% levels</aqua>"
+  location: "<gray>%world% (%x%, %y%, %z%)</gray>"
+  protection: "<gold>Protection: %mode%</gold>"
+  cause: "<red>Cause: %cause%</red>"
+  locked: "<red>🔒 Locked</red>"
+  unlocked: "<green>🔓 Unlocked</green>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    GRAVE SPAWN MESSAGES                    │
+# └────────────────────────────────────────────────────────────┘
+grave-spawned:
+  chat: "%prefix%<yellow>Your grave has been created at <white>%world%</white> <gold>%x%, %y%, %z%</gold></yellow>"
+
+  title:
+    main: "<gradient:dark_red:red>⚰ YOU DIED ⚰</gradient>"
+    sub: "<gray>Grave spawned at <yellow>%x%, %y%, %z%</yellow></gray>"
+
+  actionbar: "<red>☠</red> <gray>Grave:</gray> <yellow>%x%, %y%, %z%</yellow> <red>☠</red>"
+
+grave-spawn-failed: "%prefix%<red>Failed to create grave! Your items have been dropped.</red>"
+grave-spawn-blacklisted-world: "%prefix%<yellow>Graves are disabled in this world. Your items have been dropped.</yellow>"
+grave-limit-reached: "%prefix%<red>Maximum grave limit reached! Your oldest grave has been removed.</red>"
+
+# Guardian messages
+guardian-spawned: "%prefix%<dark_red><bold>⚔ Your ghost rises to guard your grave! ⚔</bold></dark_red>"
+guardian-killed: "%prefix%<green>You've defeated the guardian! The grave is now accessible.</green>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                  GRAVE INTERACTION MESSAGES                │
+# └────────────────────────────────────────────────────────────┘
+grave-opened: "%prefix%<green>Grave opened successfully.</green>"
+grave-looted: "%prefix%<green>You've retrieved <yellow>%items%</yellow> items from your grave.</green>"
+grave-looted-partial: "%prefix%<yellow>Retrieved <white>%retrieved%</white> items. <red>%remaining%</red> items remain (inventory full).</yellow>"
+grave-empty: "%prefix%<gray>This grave is empty.</gray>"
+grave-removed: "%prefix%<green>Grave removed.</green>"
+
+# Quick loot
+quick-loot-success: "%prefix%<green>⚡ Quick looted! <yellow>%items%</yellow> items retrieved.</green>"
+quick-loot-failed: "%prefix%<red>Cannot quick loot - your inventory is full!</red>"
+
+# Info display (left-click)
+grave-info:
+  - "<gray><strikethrough>                                        </strikethrough></gray>"
+  - "<gradient:red:gold><bold>⚰ GRAVE INFORMATION ⚰</bold></gradient>"
+  - ""
+  - "<gray>Owner:</gray> <white>%owner%</white>"
+  - "<gray>Location:</gray> <yellow>%world% (%x%, %y%, %z%)</yellow>"
+  - "<gray>Death Time:</gray> <white>%time%</white>"
+  - "<gray>Death Cause:</gray> <red>%cause%</red>"
+  - "<gray>Items:</gray> <green>%items%</green>"
+  - "<gray>XP Stored:</gray> <aqua>%xp% levels</aqua>"
+  - "<gray>Protection:</gray> <gold>%mode%</gold>"
+  - ""
+  - "<yellow>Right-click to open</yellow>"
+  - "<gray><strikethrough>                                        </strikethrough></gray>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                   PROTECTION MODE MESSAGES                 │
+# └────────────────────────────────────────────────────────────┘
+grave-locked-private: "%prefix%<red>🔒 This grave belongs to <white>%owner%</white>. You cannot access it.</red>"
+grave-locked-timed: "%prefix%<yellow>🕐 This grave is protected for <white>%time%</white> more.</yellow>"
+grave-locked-guardian: "%prefix%<dark_red>⚔ Defeat the guardian to access this grave!</dark_red>"
+grave-locked-token: "%prefix%<red>🔑 This grave requires a <gold>Grave Key</gold> to open!</red>"
+
+grave-unlocked-time: "%prefix%<green>🔓 Grave protection expired. It's now public!</green>"
+grave-unlocked-public: "%prefix%<gray>This is a public grave. Anyone can loot it.</gray>"
+
+token-used: "%prefix%<green>🔑 Grave Key used! The grave is now accessible.</green>"
+token-missing: "%prefix%<red>You don't have a Grave Key in your inventory.</red>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    ECONOMY MESSAGES                        │
+# └────────────────────────────────────────────────────────────┘
+economy-not-enabled: "%prefix%<red>Economy features are not enabled.</red>"
+insufficient-funds: "%prefix%<red>💰 Insufficient funds! You need <gold>$%cost%</gold> but only have <yellow>$%balance%</yellow>.</red>"
+teleport-cost-paid: "%prefix%<green>Paid <gold>$%cost%</gold> to teleport to your grave.</green>"
+retrieval-cost-paid: "%prefix%<green>Paid <gold>$%cost%</gold> to retrieve your items.</green>"
+refund-received: "%prefix%<green>💰 Received <gold>$%amount%</gold> refund from expired grave.</green>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    TELEPORT MESSAGES                       │
+# └────────────────────────────────────────────────────────────┘
+teleport-success: "%prefix%<green>✈ Teleported to your grave!</green>"
+teleport-failed: "%prefix%<red>Teleportation failed. The grave may no longer exist.</red>"
+teleport-unsafe: "%prefix%<red>Cannot teleport - destination is unsafe!</red>"
+teleport-cross-world: "%prefix%<yellow>Teleporting across worlds to <white>%world%</white>...</yellow>"
+teleport-cooldown: "%prefix%<red>⏰ Teleport cooldown: <white>%time%</white> remaining.</red>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    COMPASS MESSAGES                        │
+# └────────────────────────────────────────────────────────────┘
+compass-given: "%prefix%<green>🧭 Compass points to your grave at <yellow>%x%, %y%, %z%</yellow></green>"
+compass-updated: "<yellow>🧭 Grave Compass updated</yellow>"
+compass-no-grave: "%prefix%<red>You don't have any graves to track.</red>"
+compass-wrong-world: "%prefix%<yellow>⚠ Your grave is in another world: <white>%world%</white></yellow>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                     EXPIRATION MESSAGES                    │
+# └────────────────────────────────────────────────────────────┘
+grave-expiring-soon: "%prefix%<yellow>⚠ Your grave will expire in <red>%time%</red>!</yellow>"
+grave-expired: "%prefix%<red>💀 Your grave at <yellow>%x%, %y%, %z%</yellow> has expired!</red>"
+grave-expired-items-dropped: "%prefix%<yellow>Items from your expired grave were dropped at the location.</yellow>"
+grave-expired-items-deleted: "%prefix%<red>Items from your expired grave were deleted.</red>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    COMMAND MESSAGES                        │
+# └────────────────────────────────────────────────────────────┘
+# /graves command
+command-graves-no-graves: "%prefix%<yellow>You don't have any active graves.</yellow>"
+command-graves-list-header:
+  - "<gray><strikethrough>                    </strikethrough></gray> <gradient:red:gold><bold>YOUR GRAVES</bold></gradient> <gray><strikethrough>                    </strikethrough></gray>"
+command-graves-list-entry: "<yellow>%number%.</yellow> <white>%world%</white> <gray>(<yellow>%x%, %y%, %z%</yellow>)</gray> - <green>%time_ago%</green>"
+command-graves-list-footer:
+  - "<gray>Use <yellow>/graves tp <number></yellow> to teleport</gray>"
+  - "<gray><strikethrough>                                                      </strikethrough></gray>"
+
+command-graves-tp-invalid: "%prefix%<red>Invalid grave number. Use <yellow>/graves list</yellow> to see your graves.</red>"
+command-graves-info-invalid: "%prefix%<red>Grave not found.</red>"
+
+# /graveadmin command
+command-admin-cleanup-start: "%prefix%<yellow>Starting cleanup of expired graves...</yellow>"
+command-admin-cleanup-done: "%prefix%<green>Cleanup complete! Removed <yellow>%count%</yellow> expired graves.</green>"
+command-admin-purge-confirm: "%prefix%<red><bold>⚠ WARNING:</bold> This will delete ALL graves! Type <yellow>/graveadmin purge confirm</yellow> to proceed.</red>"
+command-admin-purge-done: "%prefix%<green>Purged <yellow>%count%</yellow> graves from the database.</green>"
+command-admin-list-header: "%prefix%<yellow>Total graves in database: <white>%count%</white></yellow>"
+command-admin-tp-success: "%prefix%<green>Teleported to <white>%owner%</white>'s grave.</green>"
+command-admin-remove-success: "%prefix%<green>Removed grave belonging to <white>%owner%</white>.</green>"
+
+# Help messages
+command-graves-help:
+  - "<gray><strikethrough>                    </strikethrough></gray> <gradient:red:gold><bold>GRAVES HELP</bold></gradient> <gray><strikethrough>                    </strikethrough></gray>"
+  - "<yellow>/graves list</yellow> <gray>- List all your graves</gray>"
+  - "<yellow>/graves tp <number></yellow> <gray>- Teleport to a grave</gray>"
+  - "<yellow>/graves info <number></yellow> <gray>- View grave details</gray>"
+  - "<yellow>/graves help</yellow> <gray>- Show this help</gray>"
+  - "<gray><strikethrough>                                                      </strikethrough></gray>"
+
+command-admin-help:
+  - "<gray><strikethrough>                    </strikethrough></gray> <gradient:red:gold><bold>ADMIN HELP</bold></gradient> <gray><strikethrough>                    </strikethrough></gray>"
+  - "<yellow>/graveadmin reload</yellow> <gray>- Reload configuration</gray>"
+  - "<yellow>/graveadmin cleanup</yellow> <gray>- Remove expired graves</gray>"
+  - "<yellow>/graveadmin purge</yellow> <gray>- Delete ALL graves</gray>"
+  - "<yellow>/graveadmin list [player]</yellow> <gray>- List graves</gray>"
+  - "<yellow>/graveadmin tp <player> <number></yellow> <gray>- Teleport to grave</gray>"
+  - "<yellow>/graveadmin remove <player> <number></yellow> <gray>- Remove grave</gray>"
+  - "<gray><strikethrough>                                                      </strikethrough></gray>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                      GUI MESSAGES                          │
+# └────────────────────────────────────────────────────────────┘
+gui-previous-page: "<yellow>← Previous Page</yellow>"
+gui-next-page: "<yellow>Next Page →</yellow>"
+gui-close: "<red>✖ Close</red>"
+gui-no-graves: "<gray>No graves found</gray>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                      ERROR MESSAGES                        │
+# └────────────────────────────────────────────────────────────┘
+error-generic: "%prefix%<red>An error occurred. Please contact an administrator.</red>"
+error-database: "%prefix%<red>Database error! Your grave data may not be saved.</red>"
+error-world-not-found: "%prefix%<red>The world '<yellow>%world%</yellow>' no longer exists.</red>"
+error-grave-not-found: "%prefix%<red>Grave not found. It may have expired or been removed.</red>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                   PLACEHOLDER MESSAGES                     │
+# └────────────────────────────────────────────────────────────┘
+# Used in holograms and GUIs
+placeholder-time-remaining: "%days%d %hours%h %minutes%m %seconds%s"
+placeholder-time-ago: "%time% ago"
+placeholder-never: "Never"
+placeholder-unknown: "Unknown"
+placeholder-none: "None"
+
+# Death causes (prettified)
+death-cause:
+  CONTACT: "Cactus"
+  ENTITY_ATTACK: "Mob Attack"
+  ENTITY_SWEEP_ATTACK: "Sweep Attack"
+  PROJECTILE: "Arrow"
+  SUFFOCATION: "Suffocated"
+  FALL: "Fall Damage"
+  FIRE: "Fire"
+  FIRE_TICK: "Burned"
+  MELTING: "Melted"
+  LAVA: "Lava"
+  DROWNING: "Drowned"
+  BLOCK_EXPLOSION: "Explosion"
+  ENTITY_EXPLOSION: "Creeper"
+  VOID: "Fell into Void"
+  LIGHTNING: "Lightning Strike"
+  SUICIDE: "Suicide"
+  STARVATION: "Starvation"
+  POISON: "Poison"
+  MAGIC: "Magic"
+  WITHER: "Wither Effect"
+  FALLING_BLOCK: "Crushed"
+  THORNS: "Thorns"
+  DRAGON_BREATH: "Dragon Breath"
+  CUSTOM: "Custom Damage"
+  FLY_INTO_WALL: "Kinetic Energy"
+  HOT_FLOOR: "Magma Block"
+  CRAMMING: "Cramming"
+  DRYOUT: "Dried Out"
+  FREEZE: "Frozen"
+  SONIC_BOOM: "Sonic Boom"
+  KILL: "Killed by Command"
+  UNKNOWN: "Unknown Cause"
+
+# Protection modes (display names)
+protection-mode:
+  PRIVATE: "<red>🔒 Private</red>"
+  PUBLIC: "<green>🌍 Public</green>"
+  TIMED: "<yellow>🕐 Timed Protection</yellow>"
+  PVP_PVE: "<gold>⚔ PvP/PvE</gold>"
+  TOKEN: "<light_purple>🔑 Token Required</light_purple>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    SOULBOUND MESSAGES                      │
+# └────────────────────────────────────────────────────────────┘
+soulbound-kept: "%prefix%<green>💎 Soulbound items kept in inventory (<yellow>%count%</yellow>)</green>"
+
+# ┌────────────────────────────────────────────────────────────┐
+# │                    DEBUG MESSAGES                          │
+# └────────────────────────────────────────────────────────────┘
+debug-grave-spawn: "[DEBUG] Grave spawned for %player% at %world% %x%, %y%, %z%"
+debug-grave-access: "[DEBUG] %player% accessed grave owned by %owner%"
+debug-database-save: "[DEBUG] Saved grave %id% to database"
+debug-database-load: "[DEBUG] Loaded %count% graves from database"
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                     END OF MESSAGES                          ║
+# ║                                                              ║
+# ║  Color Preview: https://webui.advntr.dev/                    ║
+# ║  MiniMessage Docs: https://docs.advntr.dev/minimessage       ║
+# ╚══════════════════════════════════════════════════════════════╝
