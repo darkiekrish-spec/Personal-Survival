@@ -3,7 +3,6 @@
 SESSION="mc"
 
 echo "Starting Playit..."
-pkill playit 2>/dev/null
 ./playit > playit.log 2>&1 &
 
 sleep 2
