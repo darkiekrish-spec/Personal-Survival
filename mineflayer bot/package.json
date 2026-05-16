@@ -1,0 +1,14 @@
+{
+  "name": "darkie-mineflayer-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Configurable Mineflayer helper bot for a local Paper server.",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node src/bot.js"
+  },
+  "dependencies": {
+    "mineflayer": "^4.32.0",
+    "mineflayer-pathfinder": "^2.4.5"
+  }
+}

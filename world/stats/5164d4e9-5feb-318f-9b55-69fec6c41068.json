@@ -1,0 +1,29 @@
+{
+  "stats": {
+    "minecraft:killed_by": {
+      "minecraft:zombie": 1
+    },
+    "minecraft:picked_up": {
+      "minecraft:jungle_log": 1
+    },
+    "minecraft:mined": {
+      "minecraft:vine": 1,
+      "minecraft:jungle_log": 1
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 2721,
+      "minecraft:fall_one_cm": 850,
+      "minecraft:walk_one_cm": 3591,
+      "minecraft:total_world_time": 16013,
+      "minecraft:leave_game": 1,
+      "minecraft:fly_one_cm": 26,
+      "minecraft:damage_taken": 265,
+      "minecraft:play_time": 16013,
+      "minecraft:climb_one_cm": 148,
+      "minecraft:deaths": 1,
+      "minecraft:jump": 20,
+      "minecraft:time_since_death": 0
+    }
+  },
+  "DataVersion": 4671
+}
